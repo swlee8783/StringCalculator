@@ -9,23 +9,6 @@ public class StringCalculator {
 		}
 		
 	return sum(makeInt(split(text)));
-		/**if (text.contains(",")) {
-			int sum = 0;
-			String[] num_arr = text.split(",|:");
-			for(String i: num_arr) {
-				sum = sum + Integer.parseInt(i);
-			}
-			return sum;
-		}
-		
-		Pattern p = Pattern.compile("^//(.)\n(.*)");
-		Matcher m = p.matcher(text);
-		
-		if(m.find()) {
-			String[] num_arr = m.group(2).split(m.group(1));
-		}
-		
-		return Integer.parseInt(text);**/
 	}
 	
 	
@@ -33,23 +16,26 @@ public class StringCalculator {
 		return (text == null || text.isBlank());
 	}
 	
-	private String[] split(String text) {
+	private String[] customDelimiter(String text) {
 		Pattern p = Pattern.compile("^//(.)\n(.*)");
 		Matcher m = p.matcher(text);
-		//String[] num_arr;
 		
-		if(m.find()) {
+		if (m.find()) {
 			return m.group(2).split(m.group(1));
 		}
-		/**if(m.find()) {
-			num_arr = m.group(2).split(m.group(1));
-		}
-		else {
+		
+		return null;
+	}
+	
+	private String[] split(String text) {
+		
+		String[] num_arr = customDelimiter(text);
+		
+		if(num_arr == null) {
 			num_arr = text.split(",|:");
 		}
-		return num_arr;**/
 		
-		return text.split(",|:");
+		return num_arr;
 	}
 	
 	private int[] makeInt(String[] splitText) {
